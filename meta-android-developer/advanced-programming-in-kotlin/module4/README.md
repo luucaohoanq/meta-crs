@@ -2,6 +2,21 @@
 
 A simple Android food menu app built with Jetpack Compose, featuring a home screen with food listings and detailed food views.
 
+<div align="center">
+  <table>
+    <tr><th colspan="2">📱 Screen Previews</th></tr>
+<tr>
+      <td align="center"><img src="Sources/home.png" alt="Home Screen" width="240"/><br/>Home Screen</td>
+      <td align="center"><img src="Sources/food_detail.png" alt="Food Detail" width="240"/><br/>Food Detail</td>
+    </tr>
+
+<tr>
+      <td align="center"><img src="Sources/category_filter.png" alt="Category Filter" width="240"/><br/>Category Filter</td>
+      <td align="center"><img src="Sources/search.png" alt="Search Filter" width="240"/><br/>Search</td>
+</tr>
+  </table>
+</div>
+
 ## Features
 
 ### Home Screen
