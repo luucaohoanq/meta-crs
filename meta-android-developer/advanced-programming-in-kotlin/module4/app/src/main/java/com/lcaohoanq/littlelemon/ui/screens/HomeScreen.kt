@@ -39,18 +39,18 @@ fun HomeScreen(
 ) {
     var selectedCategory by remember { mutableStateOf<FoodCategory?>(null) }
     var searchText by remember { mutableStateOf("") }
-    
+
     val filteredFoods = remember(selectedCategory, searchText) {
-        val foods = selectedCategory?.let { 
-            FoodData.getFoodsByCategory(it) 
+        val foods = selectedCategory?.let {
+            FoodData.getFoodsByCategory(it)
         } ?: FoodData.sampleFoods
-        
+
         if (searchText.isBlank()) {
             foods
         } else {
-            foods.filter { 
+            foods.filter {
                 it.name.contains(searchText, ignoreCase = true) ||
-                it.description.contains(searchText, ignoreCase = true)
+                        it.description.contains(searchText, ignoreCase = true)
             }
         }
     }
@@ -68,7 +68,7 @@ fun HomeScreen(
             color = LittleLemonYellow,
             modifier = Modifier.padding(bottom = 16.dp)
         )
-        
+
         // Search Bar
         OutlinedTextField(
             value = searchText,
@@ -79,7 +79,7 @@ fun HomeScreen(
                 .padding(bottom = 16.dp),
             singleLine = true
         )
-        
+
         // Category Filter
         Text(
             text = "Categories",
@@ -87,7 +87,7 @@ fun HomeScreen(
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(bottom = 8.dp)
         )
-        
+
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(bottom = 16.dp)
@@ -107,7 +107,7 @@ fun HomeScreen(
                 )
             }
         }
-        
+
         // Food List
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -187,7 +187,7 @@ fun FoodItem(
                     }
                 }
             }
-            
+
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -199,7 +199,7 @@ fun FoodItem(
                     fontWeight = FontWeight.SemiBold,
                     color = LittleLemonGreen
                 )
-                
+
                 Text(
                     text = food.description,
                     style = MaterialTheme.typography.bodyMedium,
@@ -207,18 +207,37 @@ fun FoodItem(
                     maxLines = 2,
                     modifier = Modifier.padding(vertical = 4.dp)
                 )
-                
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(
-                        text = food.category.displayName,
-                        style = MaterialTheme.typography.labelMedium,
-                        color = LittleLemonGreen.copy(alpha = 0.7f)
-                    )
-                    
+
+                    Box(
+                        modifier = Modifier
+                            .clip(
+                                RoundedCornerShape(20.dp)
+                            )
+                            .background(
+                                when (food.category) {
+                                    FoodCategory.DRINKS -> Color.Green.copy(alpha = 0.2f)
+                                    FoodCategory.FOOD -> Color.Red.copy(alpha = 0.2f)
+                                    FoodCategory.DESSERT -> Color.Yellow.copy(alpha = 0.2f)
+                                }
+                            )
+                            .padding(3.dp)
+                    ) {
+                        Text(
+                            text = food.category.displayName,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MidBlack,
+                            modifier = Modifier.padding(start = 5.dp, end = 5.dp)
+                        )
+                    }
+
+
+
                     Text(
                         text = "$${String.format("%.1f", food.price)}",
                         style = MaterialTheme.typography.titleMedium,
